@@ -5,7 +5,7 @@
 
 		{{ component('like_icon', {class: 'fill-green-500 hover:stroke-cyan-700'}) }}
 	</a>
-	{% elseif(isDisliked) %}
+	{% elseif isDisliked %}
 	<a title="you disliked this" class="post">
 		{{ component('like_icon', {class: 'fill-green-300'}) }}
 	</a>
@@ -20,7 +20,7 @@
 	<a title="undo dislike" class="ml-2 cursor-pointer" data-action="live#action" data-live-action-param="undoDislike">
 		{{ component('unlike_icon', {class: 'fill-red-500 hover:stroke-cyan-700'}) }}
 	</a>
-	{% elseif(isLiked ?? false) %}
+	{% elseif isLiked %}
 	<a title="you like this post" class="ml-2">
 		{{ component('unlike_icon', {class: 'fill-red-300'}) }}
 	</a>
