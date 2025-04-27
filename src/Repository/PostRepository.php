@@ -101,6 +101,36 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function searchPosts(string $query)
+    {
+        $querybuilder = $this->createQueryBuilder('p');
+        $searchTerms = $this->prepareQuery($query);
+
+        foreach ($searchTerms as $key => $term)
+        {
+            $querybuilder
+                 ->orWhere('p.title LIKE :t_'.$key)
+                 ->orWhere('p.content LIKE :t_'.$key)
+                 ->setParameter('t_'.$key, '%'.trim($term).'%'); 
+        }
+
+        $dbquery =  $querybuilder
+            ->select('p.title','p.id')
+            ->getQuery()
+            ->getResult();
+
+            return $dbquery;
+    }
+
+    private function prepareQuery(string $query): array
+    {
+        $terms = array_unique(explode(' ', $query));
+
+        return array_filter($terms, function ($term) {
+            return 2 <= mb_strlen($term);
+        });
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */

@@ -35,6 +35,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 RUN mkdir -p /app/var /app/public /app/.npm && \
     chown -R appuser:appuser /app
 
+RUN chmod +x bin/console
+
 # Przełącz na użytkownika appuser
 USER appuser
 
