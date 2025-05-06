@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Product;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ProductTypeForm extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+
+    $builder
+    ->add('nazwaProduktu', TextType::class, [
+        'label' => 'Nazwa produktu',
+    ])
+    ->add('cenaNetto', NumberType::class, [
+        'label' => 'Cena netto',
+        'attr' => ['step' => '0.01'],
+    ])
+    ->add('vat', NumberType::class, [
+        'label' => 'VAT (%)',
+        'attr' => ['step' => '0.01'],
+    ])
+    ->add('cenaBrutto', NumberType::class, [
+        'label' => 'Cena brutto',
+        'mapped' => false, // Pole nie jest mapowane na encję
+        'attr' => ['readonly' => true], // Pole jest tylko do odczytu
+    ]);
+}
+
+public function configureOptions(OptionsResolver $resolver): void
+{
+$resolver->setDefaults([
+    'data_class' => Product::class,
+]);
+}
+
+}
