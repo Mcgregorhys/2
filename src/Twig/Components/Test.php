@@ -52,4 +52,16 @@ final class Test
         } 
         return $output;
     }
+    public function warunek(): void
+    {
+        $pracownicy = array(
+            "szef" => "Nowak",
+            "sekretariat" => "Kowalski",
+            "biuro" => "Barański" 
+            );
+            echo $pracownicy["szef"]."<br>";
+            foreach ($pracownicy as $sta => $naz) {
+              echo "$sta  to  $naz<br>";
+            }
+    }
 }

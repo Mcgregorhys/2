@@ -41,7 +41,7 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/product/list', name: 'product_list')]
+    #[Route('/', name: 'product_list')]
     public function list(EntityManagerInterface $entityManager): Response
     {
         //pobranie wszystkich produktów z bazy danych
