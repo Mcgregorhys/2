@@ -27,6 +27,9 @@ class ProductController extends AbstractController
             $cenaNetto = $product ->getCenaNetto();
             $vat = $product -> getVat();
             $product->setCenaBrutto($cenaNetto +($cenaNetto * $vat/ 100));
+            $amount = $product->getAmount();
+            $product->setAmount( $amount);
+            $product->setValue($cenaNetto * $amount);
 
             //zapis do bazy danych (jeśli używane jest Doctrine)
             $entityManager->persist($product);
@@ -81,7 +84,14 @@ class ProductController extends AbstractController
 #[Route('/product/update/{id}', name: 'product_update', methods: ['POST'])]
 public function update(int $id, Request $request, EntityManagerInterface $entityManager): Response
 {
-    $product = $entityManager->getRepository(Product::class)->find($id);
+    // $product = $entityManager->getRepository(Product::class)->find($id);
+    // $product = $product->getNazwaProduktu();
+    // $product = $product->getAmount();
+    // $product = $product->getCenaNetto();
+    // $product = $product->getVat();
+    // $product = $product->getCenaBrutto();
+    // $product = $product->getValue();
+
 
     if (!$product) {
         $this->addFlash('warning', 'Produkt nie został znaleziony.');
@@ -90,16 +100,19 @@ public function update(int $id, Request $request, EntityManagerInterface $entity
 
     // Pobranie danych z formularza
     $nazwaProduktu = $request->request->get('nazwaProduktu');
+    $amount = $request->request->get('amount');// Upewnij się, że 'amount' jest aktualizowane
     $cenaNetto = $request->request->get('cenaNetto');
     $vat = $request->request->get('vat');
+    $cenaBrutto = $request->request->get('cenaBrutto');
+    $value = $request->request->get('value');
 
     // Aktualizacja produktu
     $product->setNazwaProduktu($nazwaProduktu);
+    $product->setAmount((int)$request->request->get('amount')); // Upewnij się, że ilość jest aktualizowana
     $product->setCenaNetto((float)$cenaNetto);
     $product->setVat((int)$vat);
-
-    // Wyliczenie ceny brutto i zapis
     $product->setCenaBrutto($product->getCenaNetto() + ($product->getCenaNetto() * $product->getVat() / 100));
+    $product->setValue($product->getCenaBrutto() * $product->getAmount());
 
     $entityManager->flush();
 
@@ -125,9 +138,11 @@ public function editOrDelete(Request $request, EntityManagerInterface $entityMan
 
             if ($product) {
                 $product->setNazwaProduktu($data['nazwaProduktu']);
+                $product->setAmount((int)$data['amount']);
                 $product->setCenaNetto((float)$data['cenaNetto']);
                 $product->setVat((int)$data['vat']);
                 $product->setCenaBrutto($product->getCenaNetto() + ($product->getCenaNetto() * $product->getVat() / 100));
+                $product->setValue($product->getCenaNetto() * $product->getAmount());
             }
         }
         $entityManager->flush();

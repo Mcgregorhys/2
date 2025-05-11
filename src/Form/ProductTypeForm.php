@@ -18,6 +18,10 @@ class ProductTypeForm extends AbstractType
     ->add('nazwaProduktu', TextType::class, [
         'label' => 'Nazwa produktu',
     ])
+    ->add('amount', NumberType::class, [
+        'label' => 'Ilość',
+        'attr' => ['step' => '1'],
+    ])
     ->add('cenaNetto', NumberType::class, [
         'label' => 'Cena netto',
         'attr' => ['step' => '0.01'],
@@ -30,14 +34,20 @@ class ProductTypeForm extends AbstractType
         'label' => 'Cena brutto',
         'mapped' => false, // Pole nie jest mapowane na encję
         'attr' => ['readonly' => true], // Pole jest tylko do odczytu
+    ])
+    ->add('wartoscMagazynowa', NumberType::class, [
+        'label' => 'Wartość magazynowa',
+        'mapped' => false, // Pole nie jest mapowane na encję
+        'attr' => ['readonly' => true], // Pole jest tylko do odczytu
     ]);
+    }
 }
 
-public function configureOptions(OptionsResolver $resolver): void
+ function configureOptions(OptionsResolver $resolver): void
 {
 $resolver->setDefaults([
     'data_class' => Product::class,
 ]);
 }
 
-}
+

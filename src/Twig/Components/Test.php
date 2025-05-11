@@ -64,4 +64,13 @@ final class Test
               echo "$sta  to  $naz<br>";
             }
     }
+
+    public ?string $result = null;
+
+    public function checkNumber(int $number): string
+    {
+        return ($number % 2 == 0) 
+            ? "Liczba $number jest parzysta." 
+            : "Liczba $number jest nieparzysta.";
+    }
 }

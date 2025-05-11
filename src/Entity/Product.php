@@ -15,6 +15,10 @@ class Product
 
     #[ORM\Column(length: 255)]
     private ?string $nazwaProduktu = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $amount = null;
+    
     #[ORM\Column(length: 255)]
     private ?string $cena_netto = null;
 
@@ -23,6 +27,11 @@ class Product
 
     #[ORM\Column(length: 255)]
     private ?string $cena_brutto = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $value = null;
+
+    
 
    
 
@@ -73,6 +82,30 @@ class Product
     public function setCenaBrutto(string $cena_brutto): static
     {
         $this->cena_brutto = $cena_brutto;
+
+        return $this;
+    }
+
+    public function getAmount(): ?string
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?string $amount): static
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(string $value): static
+    {
+        $this->value = $value;
 
         return $this;
     }
