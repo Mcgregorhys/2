@@ -30,6 +30,7 @@ class ProductController extends AbstractController
             $amount = $product->getAmount();
             $product->setAmount( $amount);
             $product->setValue($cenaNetto * $amount);
+            $product->setLp(0);
 
             //zapis do bazy danych (jeśli używane jest Doctrine)
             $entityManager->persist($product);
@@ -50,8 +51,18 @@ class ProductController extends AbstractController
         //pobranie wszystkich produktów z bazy danych
         $products = $entityManager->getRepository(Product::class)->findAll();
         //Renderowanie widoku i przekazanie produktów
+
+          // Ustawienie liczby porządkowej
+        $lp = 1;
+        $totalValue = 0;
+        foreach ($products as $product) {
+            $product->setLp($lp++);
+            $totalValue += $product->getValue();
+        }
+
         return $this ->render('product/list.html.twig', [
             'products'=> $products,
+            'totalValue' => $totalValue,
         ]);
     }
     

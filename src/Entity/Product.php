@@ -14,6 +14,9 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $lp = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $nazwaProduktu = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -33,12 +36,27 @@ class Product
 
     
 
+    
+
    
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    public function getLp(): ?string
+    {
+        return $this->lp;
+    }
+
+    public function setLp(string $lp): static
+    {
+        $this->lp = $lp;
+
+        return $this;
+    }
+
     public function getNazwaProduktu(): ?string
     {
         return $this->nazwaProduktu;
@@ -110,5 +128,6 @@ class Product
         return $this;
     }
 
+    
    
 }
