@@ -1,0 +1,6 @@
+# Ignoruj plik środowiskowy .env
+/.env
+
+# Opcjonalnie: zignoruj również lokalne nadpisania (np. .env.local)
+/.env.local
+/.env.*.local

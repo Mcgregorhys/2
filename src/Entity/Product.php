@@ -34,6 +34,8 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $value = null;
 
+ 
+
     
 
     
@@ -127,6 +129,8 @@ class Product
 
         return $this;
     }
+
+
 
     
    
