@@ -11,7 +11,8 @@ Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    //.setPublicPath('/build')
+    .setPublicPath('/1/public/build/')
     .configureFilenames({
         js: '[name].[contenthash].js',
         css: '[name].[contenthash].css'
